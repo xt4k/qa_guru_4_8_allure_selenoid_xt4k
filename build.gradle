@@ -51,8 +51,8 @@ test {
     useJUnitPlatform()
 }
 
-task negative_tests(type: Test) {
+task failed_tests(type: Test) {
     useJUnitPlatform {
-        includeTags 'negative'
+        includeTags 'failed'
     }
 }

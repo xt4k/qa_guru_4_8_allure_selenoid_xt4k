@@ -1,13 +1,22 @@
 package helpers;
 
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Configuration.startMaximized;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
+import static helpers.AttachmentsHelper.*;
+import static java.lang.System.getProperty;
 import static java.lang.System.setProperty;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,7 +25,16 @@ public class BaseTest {
 
     @BeforeAll
     static void setup() {
+        addListener("AllureSelenide",new AllureSelenide().screenshots(true).savePageSource(true));
+        Configuration.browser=getProperty("browser","chrome");
         startMaximized = true;
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+       // capabilities.setCapability("enableVideo",true);
+        capabilities.setCapability("enableVNC",true);
+        Configuration.browserCapabilities=capabilities;
+        //headless=false;
+        remote ="https://user1:1234@selenoid.autotests.cloud:4444/wb/hub";
         Properties properties = new Properties();
         try {
             properties.load(new FileReader("src/test/resources/properties/common.properties"));
@@ -33,6 +51,16 @@ public class BaseTest {
     @Step("Here will be in purpose failed test.")
     public void failStep() {
         fail("This step fails test.");
+    }
+
+    @AfterEach
+    public void afterEach() {
+        attachScreenshot("Last screenshot");
+        attachPageSource();
+        attachAsText("Browser console logs", getConsoleLogs());
+        if(System.getProperty("video_storage") != null)
+            attachVideo();
+        closeWebDriver();
     }
 
 }
