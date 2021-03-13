@@ -17,9 +17,9 @@ public class StudentsRegistrationFormTests extends BaseTest {
     @Tag("positive")
     @Severity(BLOCKER)
     @DisplayName("Test 01: Check Student form registration for full form fill.")
-    public void test01studentRegForm() {
-        Student student = new Student();
-        test = new StudentRegistrationScenario();
+    public void test01studentRegForm( ) {
+        Student student = new Student( );
+        test = new StudentRegistrationScenario( );
         test.successStudentRegisterScenario(student);
     }
 
@@ -27,9 +27,9 @@ public class StudentsRegistrationFormTests extends BaseTest {
     @Tag("positive")
     @Severity(BLOCKER)
     @DisplayName("Test 02: Check Student form registration for full form only required fields fill.")
-    public void test02studentRegForm() {
+    public void test02studentRegForm( ) {
         Student student = new Student(true);
-        test = new StudentRegistrationScenario();
+        test = new StudentRegistrationScenario( );
         test.successStudentRegisterScenario(student);
     }
 
@@ -37,11 +37,11 @@ public class StudentsRegistrationFormTests extends BaseTest {
     @Tag("negative")
     @Severity(BLOCKER)
     @DisplayName("Test 03: Check unsuccessful Student form registration for not filled required field `First Name`.")
-    public void test03studentRegForm() {
+    public void test03studentRegForm( ) {
         String fieldName = "firstName";
         Student student = new Student(true);
         student.setFirstName(null);
-        test = new StudentRegistrationScenario();
+        test = new StudentRegistrationScenario( );
         test.unSuccessStudentRegisterScenario(student, fieldName);
     }
 
@@ -49,11 +49,11 @@ public class StudentsRegistrationFormTests extends BaseTest {
     @Tag("negative")
     @Severity(BLOCKER)
     @DisplayName("Test 04: Check unsuccessful Student form registration for not filled required field `Last Name`.")
-    public void test04studentRegForm() {
+    public void test04studentRegForm( ) {
         String fieldName = "lastName";
         Student student = new Student(true);
         student.setLastName(null);
-        test = new StudentRegistrationScenario();
+        test = new StudentRegistrationScenario( );
         test.unSuccessStudentRegisterScenario(student, fieldName);
     }
 
@@ -61,9 +61,9 @@ public class StudentsRegistrationFormTests extends BaseTest {
     @Tag("failed")
     @Severity(BLOCKER)
     @DisplayName("Test 05: Failed test.")
-    public void test05studentRegForm() {
-        test = new StudentRegistrationScenario();
-        test.failedTest();
+    public void test05studentRegForm( ) {
+        test = new StudentRegistrationScenario( );
+        test.failedTest( );
     }
 
 }
