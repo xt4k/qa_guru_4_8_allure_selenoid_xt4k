@@ -46,7 +46,7 @@ public class Student {
         this.subjects = "e";
         this.hobbies = new Random().nextInt(3) + 1;
         this.address = faker.address().fullAddress();
-        this.icon = new File(getProperty("icon.path"));
+        //this.icon = new File(getProperty("icon.path"));
         this.state = "u";
         this.city = "l";
         genderName = null;

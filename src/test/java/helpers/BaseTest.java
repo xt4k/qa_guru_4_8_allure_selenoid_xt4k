@@ -6,9 +6,14 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
 import static com.codeborne.selenide.Configuration.*;
@@ -25,28 +30,35 @@ public class BaseTest {
 
     @BeforeAll
     static void setup() {
-        addListener("AllureSelenide",new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.browser=getProperty("browser","chrome");
+        addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        Configuration.browser = getProperty("browser", "chrome");
         startMaximized = true;
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-       // capabilities.setCapability("enableVideo",true);
-        capabilities.setCapability("enableVNC",true);
-        Configuration.browserCapabilities=capabilities;
-        //headless=false;
-        remote ="https://user1:1234@selenoid.autotests.cloud:4444/wb/hub";
-        Properties properties = new Properties();
-        try {
-            properties.load(new FileReader("src/test/resources/properties/common.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (System.getProperty("remote_driver") != null) {
+            // config for Java + Selenide
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", true);
+            Configuration.browserCapabilities = capabilities;
+            Configuration.remote = System.getProperty("remote_driver");
+
+
+            //  Configuration.remote ="https://user1:1234@selenoid.autotests.cloud:4444/wb/hub";
+            Properties properties = new Properties();
+            try {
+                properties.load(new FileReader("src/test/resources/properties/common.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setProps(properties);
         }
-        setProps(properties);
     }
 
-    private static void setProps(Properties properties) {
-        properties.forEach((key, value) -> setProperty((String) key, (String) value));
-    }
+        private static void setProps (Properties properties){
+            properties.forEach((key, value) -> setProperty((String) key, (String) value));
+        }
+
 
     @Step("Here will be in purpose failed test.")
     public void failStep() {

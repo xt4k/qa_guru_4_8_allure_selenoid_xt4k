@@ -55,10 +55,10 @@ public class BasePageObject {
         if (student.getCity() != null)
             $("#react-select-4-input").setValue(student.getCity())
                     .pressEnter();
-        if (student.getIcon() != null) {
+     /*   if (student.getIcon() != null) {
             File file = student.getIcon();
             $("#uploadPicture").uploadFile(file);
-        }
+        }*/
         return this;
     }
 
