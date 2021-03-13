@@ -5,10 +5,7 @@ import io.qameta.allure.Step;
 import po.BasePageObject;
 import pojo.Student;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 public class StudentRegistrationScenario extends BaseTest {
-    String basePageUrl = "https://demoqa.com/automation-practice-form";
     BasePageObject po = new BasePageObject();
 
     @Step("Success student form register scenario")
@@ -18,7 +15,6 @@ public class StudentRegistrationScenario extends BaseTest {
                 .fillRegForm(student)
                 .submitForm();
         po.registeredFormVerification(student);
-        //Assert section
     }
 
     @Step("Success student form register scenario")
@@ -37,6 +33,6 @@ public class StudentRegistrationScenario extends BaseTest {
                 .validateFormOpen()
                 .submitForm();
         po.validateFormOpen();
-        fail("This step fails test.");
+        failStep();
     }
 }
