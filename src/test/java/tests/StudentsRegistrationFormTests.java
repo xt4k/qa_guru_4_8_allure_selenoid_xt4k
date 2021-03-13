@@ -1,7 +1,10 @@
 package tests;
 
 import helpers.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -9,10 +12,13 @@ import pojo.Student;
 
 import static io.qameta.allure.SeverityLevel.BLOCKER;
 
-
+@Epic("Student registration form tests")
 public class StudentsRegistrationFormTests extends BaseTest {
     StudentRegistrationScenario test;
 
+
+    @Feature("Positive tests")
+    @Story("Totally filled form")
     @Test
     @Tag("positive")
     @Severity(BLOCKER)
@@ -23,6 +29,8 @@ public class StudentsRegistrationFormTests extends BaseTest {
         test.successStudentRegisterScenario(student);
     }
 
+    @Feature("Positive tests")
+    @Story("Form filled in minimal way")
     @Test
     @Tag("positive")
     @Severity(BLOCKER)
@@ -33,6 +41,8 @@ public class StudentsRegistrationFormTests extends BaseTest {
         test.successStudentRegisterScenario(student);
     }
 
+    @Feature("Negative tests")
+    @Story("Incomplete form")
     @Test
     @Tag("negative")
     @Severity(BLOCKER)
@@ -45,6 +55,8 @@ public class StudentsRegistrationFormTests extends BaseTest {
         test.unSuccessStudentRegisterScenario(student, fieldName);
     }
 
+    @Feature("Negative tests")
+    @Story("Incomplete form")
     @Test
     @Tag("negative")
     @Severity(BLOCKER)
@@ -57,6 +69,8 @@ public class StudentsRegistrationFormTests extends BaseTest {
         test.unSuccessStudentRegisterScenario(student, fieldName);
     }
 
+    @Feature("Failed tests")
+    @Story("Test failed in purpose")
     @Test
     @Tag("failed")
     @Severity(BLOCKER)
